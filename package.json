@@ -1,0 +1,22 @@
+{
+  "name": "react-awesome-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pangpangfei/react-awesome-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pangpangfei/react-awesome-backend/issues"
+  },
+  "homepage": "https://github.com/pangpangfei/react-awesome-backend#readme",
+  "dependencies": {
+    "koa": "^2.7.0"
+  }
+}
