@@ -1,24 +1,33 @@
 const Koa = require('koa');
 const app = new Koa();
+const router = require('./routes');
+const logger = require('koa-logger');
+const json = require('koa-json');
+const session = require('koa-session');
+
 app.context.name = 'pangpang';
-// logger 
-app.use(async (ctx, next) => {
-    await next();
-    const rt = ctx.response.get('X-Response-Time');
-    console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+// session
+app.keys = ['some secret hurr'];
+const CONFIG = {
+  key: 'koa:sess', 
+  maxAge: 86400000,
+  autoCommit: true,
+  overwrite: true,
+  httpOnly: true,
+  signed: true, 
+  rolling: false,
+  renew: false
+};
+app.use(session(CONFIG, app));
+// logger
+app.use(logger());
+// json
+app.use(json());
+// router
+app.use(router);
+// error
+app.on('error', err => {
+    console.error('server error', err)
 });
 
-// x-response-time
-app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.set('X-Response-Time', `${ms}ms`);
-});
-
-// response
-app.use(async ctx => {
-    ctx.body = `hello ${ctx.context.name}`;
-});
-
-app.listen(3000);
+app.listen(3001);
